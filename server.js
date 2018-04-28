@@ -115,17 +115,19 @@ app.post('/import_sensor_data', function (req, res) {
 });
 
 app.get('/get_discomfort_index_kind1', function (req, res) {
-  if(req.body != null && req.body != "" && req.body != {} && req.body != []) {
-    if(req.body.id == 0) {
+  
+
+  if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
+    if(req.query.id == 0) {
       res.json({ discomfort_index : 50 });
     }
-    else if(req.body.id == 1) {
+    else if(req.query.id == 1) {
       res.json({ discomfort_index : 51 });
     }
-    else if(req.body.id == 2) {
+    else if(req.query.id == 2) {
       res.json({ discomfort_index : 52 });
     }
-    else if(req.body.id == 3) {
+    else if(req.query.id == 3) {
       res.json({ discomfort_index : 53 });
     }
     else {
