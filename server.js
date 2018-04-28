@@ -2,11 +2,13 @@
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
-    
+    var bodyParser = require('body-parser');
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -102,6 +104,16 @@ app.get('/pagetest', function (req, res) {
     res.send('{ pageCount: -1 }');
   }
 });
+
+app.get('/get_discomfort_index_kind1', function (req, res) {
+  if(req.body != null && req.body != "" && req.body != {} && req.body != []) {
+    res.send('{ index: 65 }');
+  }
+  else {
+    res.send('{ index: -1 }');
+  }
+});
+
 
 // error handling
 app.use(function(err, req, res, next){
