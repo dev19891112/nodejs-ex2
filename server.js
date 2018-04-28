@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 Object.assign=require('object-assign');
 
 app.engine('html', require('ejs').renderFile);
-app.use(morgan('combined'))
+app.use(morgan('combined'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
