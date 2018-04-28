@@ -105,6 +105,15 @@ app.get('/pagetest', function (req, res) {
   }
 });
 
+app.post('/import_sensor_data', function (req, res) {
+  if(req.body != null && req.body != "" && req.body != {} && req.body != []) {
+    res.send('{ index: 65 }');
+  }
+  else {
+    res.send('{ index: -1 }');
+  }
+});
+
 app.get('/get_discomfort_index_kind1', function (req, res) {
   if(req.body != null && req.body != "" && req.body != {} && req.body != []) {
     res.send('{ index: 65 }');
