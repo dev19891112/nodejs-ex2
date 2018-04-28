@@ -107,23 +107,7 @@ app.get('/pagetest', function (req, res) {
 
 app.post('/import_sensor_data', function (req, res) {
   if(req.body != null && req.body != "" && req.body != {} && req.body != []) {
-    var data = {};
-    data['id'] = req.body.id;
-    if(data['id'] == 0) {
-      res.json({ index: 60 });
-    }
-    else if(data['id'] == 1) {
-      res.json({ index: 61 });
-    }
-    else if(data['id'] == 2) {
-      res.json({ index: 62 });
-    }
-    else if(data['id'] == 3) {
-      res.json({ index: 63 });
-    }
-    else {
-      res.json({ index: 0 });
-    }
+    res.json({ index: 60 });
   }
   else {
     res.json({ index: -1 });
