@@ -142,11 +142,15 @@ app.post('/import_sensor_data', function (req, res) {
       var temperture = col.body.temperture;
       var humidity = col.body.humidity;
 
+      res.status(200).send(temperture + "," + humidity);
+
+/*
       // 不快度指数を計算
       var discomfortIdx = getDiscomfortIdx(temperture, humidity);
       
       // 不快度指数を返す
       res.json({ discomfort_index : discomfortIdx });
+*/
     }
     else {
       // レコード挿入失敗
