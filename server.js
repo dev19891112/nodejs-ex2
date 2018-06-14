@@ -137,7 +137,7 @@ app.post('/import_sensor_data', function (req, res) {
       // レコード挿入
       var col = db.collection('sensor_datas');
       col.insert(req.body);
-
+/*
       // bodyに含まれる気温と湿度を取り出す。
       var temperture = col.body.temperture;
       var humidity = col.body.humidity;
@@ -147,6 +147,7 @@ app.post('/import_sensor_data', function (req, res) {
       
       // 不快度指数を返す
       res.json({ 'discomfort_index' : discomfortIdx });
+*/
     }
     else {
       // レコード挿入失敗
