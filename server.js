@@ -106,16 +106,60 @@ app.get('/pagetest', function (req, res) {
 });
 
 app.post('/import_sensor_data', function (req, res) {
-  if(req.body != null && req.body != "" && req.body != {} && req.body != []) {
-    res.json({ discomfort_index : 60 });
+
+  // 初期化
+  if (!db) {
+    initDb(function(err){});
+  }
+  
+  // レコード挿入
+  if (db) {
+    if(req.body != null && req.body != "" && req.body != {} && req.body != []) {
+      
+      // 現在日時を取得
+      var nowDate = new Date();
+      nowDate.setHours(nowDate.getHours()+9);
+      var yy = nowDate.getFullYear();
+      var mm = nowDate.getMonth();
+      var dd = nowDate.getDate();
+      var hh = nowDate.getHours();
+      var mi = nowDate.getMinutes();
+      var ss = nowDate.getSeconds();
+      
+      // body内の情報に現在日時情報を追加
+      req.body['year'] = Number(yy);
+      req.body['month'] = Number(mm) + 1;
+      req.body['day'] = Number(dd);
+      req.body['hour'] = Number(hh);
+      req.body['minute'] = Number(mi);
+      req.body['second'] = Number(ss);
+      
+      // レコード挿入
+      var col = db.collection('sensor_datas');
+      col.insert(req.body);
+
+      // bodyに含まれる気温と湿度を取り出す。
+      var temperture = col.body.temperture;
+      var humidity = col.body.humidity;
+
+      // 不快度指数を計算
+      var discomfortIdx = getDiscomfortIdx(temperture, humidity);
+      
+      // 不快度指数を返す
+      res.json({ 'discomfort_index' : discomfortIdx });
+    }
+    else {
+      // レコード挿入失敗
+      res.json({ discomfort_index: -1 });
+    }
   }
   else {
+    // レコード挿入失敗
     res.json({ discomfort_index: -1 });
   }
 });
 
 app.get('/get_discomfort_index_kind1', function (req, res) {
-  
 
   if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
     if(req.query.id == 0) {
@@ -139,6 +183,23 @@ app.get('/get_discomfort_index_kind1', function (req, res) {
   }
 });
 
+app.get('/get_sensor_datas_all', function (req, res) {
+  if(!db) {
+    initDb(function(err){});
+  }
+  
+  if(db) {
+    var col = db.collection('sensor_datas');
+    var getQuery = {};
+    var arr = col.find(getQuery).toArray((error, documents) => {
+      console.log('OK');
+      res.status(200).json(documents);
+    });
+  }
+  else {
+    res.status(500).send("UnknownError");
+  }
+});
 
 // error handling
 app.use(function(err, req, res, next){
@@ -154,3 +215,8 @@ app.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
 
 module.exports = app ;
+
+// 不快度指数計算
+function getDiscomfortIdx(temperture, humidity) {
+  return (0.81 * temperture + 0.01 * humidity * (0.99 * temperture-14.3) + 46.3);
+}
