@@ -146,8 +146,9 @@ app.post('/import_sensor_data', function (req, res) {
       var discomfortIdx = getDiscomfortIdx(temperture, humidity);
       
       // 不快度指数を返す
-      res.json({ 'discomfort_index' : discomfortIdx });
+      res.json({ discomfort_index : discomfortIdx });
 */
+      res.json({ discomfort_index : 0 });
     }
     else {
       // レコード挿入失敗
