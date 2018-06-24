@@ -201,8 +201,7 @@ app.get('/get_sensor_datas_all', function (req, res) {
   }
 });
 
-app.post('/post_sensor_datas_drop', function (req, res) {
-
+app.post('/drop_sensor_datas', function (req, res) {
   // ƒRƒŒƒNƒVƒ‡ƒ“íœ
   if(db) {
     db.sensor_datas.remove({});
