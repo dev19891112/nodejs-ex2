@@ -187,16 +187,14 @@ app.get('/get_discomfort_index_kind1', function (req, res) {
   }
   
   if(db) {
-    var collection = db.collection('sensor_datas');
-    collection.find( { id : req.query.id } )
-    .toArray((error, documents) => {
+    var col = db.collection('sensor_datas');
+    var arr = col.find().sort{ "_id" : -1 }.toArray((error, documents) => {
       res.status(200).json(documents);
     });
   }
   else {
     res.json({ discomfort_index: -1 });
   }
-
 });
 
 app.get('/get_sensor_datas_all', function (req, res) {
