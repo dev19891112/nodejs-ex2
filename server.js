@@ -205,7 +205,7 @@ app.get('/get_sensor_datas_drop', function (req, res) {
 
   // ƒRƒŒƒNƒVƒ‡ƒ“íœ
   if(db) {
-    db.sensor_datas.drop();
+    db.sensor_datas.remove({});
   }
 
 });
