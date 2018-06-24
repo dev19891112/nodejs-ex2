@@ -200,7 +200,7 @@ app.get('/get_discomfort_index_kind2', function (req, res) {
 
       // Às
       var col = db.collection('sensor_datas');
-      var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
+      var arr = col.findOne(findQuery).sort(sortQuery).toArray((error, documents) => {
         res.status(200).json(documents);
       });
     }
