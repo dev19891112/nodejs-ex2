@@ -190,16 +190,19 @@ app.get('/get_discomfort_index_kind2', function (req, res) {
     }
     
     if(db) {
-      var col = db.collection('sensor_datas');
+      
+      // ŒŸõ‘ÎÛ
       var findQuery = { id: 0 };
-      var debuglog = "findQuery['id']=" + findQuery['id'];
-      findQuery['id'] = req.query.id;
-      debuglog = debuglog + ", findQuery['id']=" + findQuery['id'];
+      findQuery['id'] = Number(req.query.id);
+
+      // •À‚Ñ‡
       var sortQuery = { _id: -1 };
-      res.status(200).json(findQuery);
-//      var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
-//        res.status(200).json(documents);
-//      });
+
+      // ŽÀs
+      var col = db.collection('sensor_datas');
+      var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
+        res.status(200).json(documents);
+      });
     }
     else {
       res.json({ discomfort_index: -1 });
