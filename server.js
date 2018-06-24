@@ -136,7 +136,7 @@ app.post('/import_sensor_data', function (req, res) {
       
       // レコード挿入
       var col = db.collection('sensor_datas');
-      col.insertOne(req.body);
+      col.insert(req.body);
 
       // bodyに含まれる気温と湿度を取り出す。
       var temperture = req.body.temperture;
@@ -201,7 +201,21 @@ app.get('/get_discomfort_index_kind2', function (req, res) {
       // 実行
       var col = db.collection('sensor_datas');
       var arr = col.find(findQuery).sort(sortQuery).limit(1).toArray((error, documents) => {
-        res.status(200).json(documents);
+
+        // 気温と湿度を取り出す。
+        var document = documents[0];
+        var temperture = document.temperture;
+        var humidity = document.humidity;
+
+var log = document + ":" + temperture + "," + humidity;
+res.send(log);
+
+//        // 不快度指数を計算
+//        var discomfortIdx = getDiscomfortIdx(temperture, humidity);
+//        
+//        // 不快度指数を返す
+//        res.json({ discomfort_index : discomfortIdx });
+//        res.status(200).json(documents);
       });
     }
     else {
