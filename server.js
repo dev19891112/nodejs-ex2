@@ -160,41 +160,42 @@ app.post('/import_sensor_data', function (req, res) {
 });
 
 app.get('/get_discomfort_index_kind1', function (req, res) {
+  if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
+    if(req.query.id == 0) {
+      res.json({ discomfort_index : 50 });
+    }
+    else if(req.query.id == 1) {
+      res.json({ discomfort_index : 51 });
+    }
+    else if(req.query.id == 2) {
+      res.json({ discomfort_index : 52 });
+    }
+    else if(req.query.id == 3) {
+      res.json({ discomfort_index : 53 });
+    }
+    else {
+      res.json({ discomfort_index : -1 });
+    }
+  }
+  else {
+    res.json({ discomfort_index: -1 });
+  }
+});
 
-//  if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
-//    if(req.query.id == 0) {
-//      res.json({ discomfort_index : 50 });
-//    }
-//    else if(req.query.id == 1) {
-//      res.json({ discomfort_index : 51 });
-//    }
-//    else if(req.query.id == 2) {
-//      res.json({ discomfort_index : 52 });
-//    }
-//    else if(req.query.id == 3) {
-//      res.json({ discomfort_index : 53 });
-//    }
-//    else {
-//      res.json({ discomfort_index : -1 });
-//    }
-//  }
-//  else {
-//    res.json({ discomfort_index: -1 });
-//  }
+
+app.get('/get_discomfort_index_kind2', function (req, res) {
 
   if(!db) {
     initDb(function(err){});
   }
   
   if(db) {
-//    var col = db.collection('sensor_datas');
-//    var findQuery = { id: { $eq: req.query.id} };
-//    var sortQuery = { _id : -1 };
-//    var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
-//      res.status(200).json(documents);
-//    });
-
-    res.json({ discomfort_index: 0 });
+    var col = db.collection('sensor_datas');
+    var findQuery = { id: req.query.id };
+    var sortQuery = { _id: -1 };
+    var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
+      res.status(200).json(documents);
+    });
   }
   else {
     res.json({ discomfort_index: -1 });
