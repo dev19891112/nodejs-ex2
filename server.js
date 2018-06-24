@@ -196,7 +196,7 @@ app.get('/get_discomfort_index_kind2', function (req, res) {
       findQuery['id'] = req.query.id;
       debuglog = debuglog + ", findQuery['id']=" + findQuery['id'];
       var sortQuery = { _id: -1 };
-      res.status(200).json(sortQuery);
+      res.status(200).json(findQuery);
 //      var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
 //        res.status(200).json(documents);
 //      });
