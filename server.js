@@ -206,7 +206,7 @@ app.post('/remove_sensor_datas', function (req, res) {
   if(db) {
     var target_id = req.body['_id'];
     var col = db.collection('sensor_datas');
-    col.sensor_datas.remove({
+    col.remove({
     	'_id' : target_id
     });
   }
