@@ -184,22 +184,28 @@ app.get('/get_discomfort_index_kind1', function (req, res) {
 
 
 app.get('/get_discomfort_index_kind2', function (req, res) {
-
-  if(!db) {
-    initDb(function(err){});
-  }
-  
-  if(db) {
-    var col = db.collection('sensor_datas');
-    var findQuery = { id: req.query.id };
-    var sortQuery = { _id: -1 };
-    var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
-      res.status(200).json(documents);
-    });
+  if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
+    if(!db) {
+      initDb(function(err){});
+    }
+    
+    if(db) {
+      var col = db.collection('sensor_datas');
+      var findQuery = { "id": req.query.id };
+  //    var sortQuery = { _id: -1 };
+      var sortQuery = {};
+      var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
+        res.status(200).json(documents);
+      });
+    }
+    else {
+      res.json({ discomfort_index: -1 });
+    }
   }
   else {
     res.json({ discomfort_index: -1 });
   }
+
 });
 
 app.get('/get_sensor_datas_all', function (req, res) {
@@ -223,8 +229,6 @@ app.get('/get_sensor_datas_all', function (req, res) {
 app.post('/remove_sensor_datas', function (req, res) {
   // ƒRƒŒƒNƒVƒ‡ƒ“íœ
   if(db) {
-//    var target_id = req.body['_id'];
-//    var delQuery = { _id : {$eq: target_id} };
     var col = db.collection('sensor_datas');
     col.deleteMany({});
 
