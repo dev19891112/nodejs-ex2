@@ -201,10 +201,13 @@ app.get('/get_sensor_datas_all', function (req, res) {
   }
 });
 
-app.post('/drop_sensor_datas', function (req, res) {
+app.post('/remove_sensor_datas', function (req, res) {
   // ƒRƒŒƒNƒVƒ‡ƒ“íœ
   if(db) {
-    db.sensor_datas.remove({});
+    var target_id = req.body['_id'];
+    db.sensor_datas.remove({
+    	'_id' : target_id
+    });
   }
 
 });
