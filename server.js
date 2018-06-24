@@ -161,30 +161,6 @@ app.post('/import_sensor_data', function (req, res) {
 
 app.get('/get_discomfort_index_kind1', function (req, res) {
   if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
-    if(req.query.id == 0) {
-      res.json({ discomfort_index : 50 });
-    }
-    else if(req.query.id == 1) {
-      res.json({ discomfort_index : 51 });
-    }
-    else if(req.query.id == 2) {
-      res.json({ discomfort_index : 52 });
-    }
-    else if(req.query.id == 3) {
-      res.json({ discomfort_index : 53 });
-    }
-    else {
-      res.json({ discomfort_index : -1 });
-    }
-  }
-  else {
-    res.json({ discomfort_index: -1 });
-  }
-});
-
-
-app.get('/get_discomfort_index_kind2', function (req, res) {
-  if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
     if(!db) {
       initDb(function(err){});
     }
@@ -204,18 +180,14 @@ app.get('/get_discomfort_index_kind2', function (req, res) {
 
         // 気温と湿度を取り出す。
         var document = documents[0];
-        var temperture = document.temperture;
-        var humidity = document.humidity;
+        var temperture = Number(document.temperture);
+        var humidity = Number(document.humidity);
 
-var log = document + ":" + temperture + "," + humidity;
-res.send(log);
-
-//        // 不快度指数を計算
-//        var discomfortIdx = getDiscomfortIdx(temperture, humidity);
-//        
-//        // 不快度指数を返す
-//        res.json({ discomfort_index : discomfortIdx });
-//        res.status(200).json(documents);
+        // 不快度指数を計算
+        var discomfortIdx = getDiscomfortIdx(temperture, humidity);
+        
+        // 不快度指数を返す
+        res.json({ discomfort_index : discomfortIdx });
       });
     }
     else {
