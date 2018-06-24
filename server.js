@@ -209,8 +209,16 @@ app.post('/remove_sensor_datas', function (req, res) {
     col.remove({
     	'_id' : target_id
     });
-  }
 
+    var getQuery = {};
+    var arr = col.find(getQuery).toArray((error, documents) => {
+      console.log('OK');
+      res.status(200).json(documents);
+    });
+  }
+  else {
+    res.status(500).send("UnknownError");
+  }
 });
 
 // error handling
