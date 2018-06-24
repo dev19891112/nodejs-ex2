@@ -201,6 +201,22 @@ app.get('/get_sensor_datas_all', function (req, res) {
   }
 });
 
+app.get('/get_sensor_datas_after_drop', function (req, res) {
+
+  // ƒRƒŒƒNƒVƒ‡ƒ“íœ
+  if(db) {
+    db.sensor_datas.drop();
+
+    var col = db.collection('sensor_datas');
+    var getQuery = {};
+    var arr = col.find(getQuery).toArray((error, documents) => {
+      console.log('OK');
+      res.status(200).json(documents);
+    });
+  }
+
+});
+
 // error handling
 app.use(function(err, req, res, next){
   console.error(err.stack);
