@@ -150,12 +150,12 @@ app.post('/import_sensor_data', function (req, res) {
     }
     else {
       // レコード挿入失敗
-      res.json({ "discomfort_index": -1 });
+      res.json({ discomfort_index: -1 });
     }
   }
   else {
     // レコード挿入失敗
-    res.json({ "discomfort_index": -1 });
+    res.json({ discomfort_index: -1 });
   }
 });
 
@@ -188,15 +188,16 @@ app.get('/get_discomfort_index_kind1', function (req, res) {
   
   if(db) {
     var col = db.collection('sensor_datas');
-//    var findQuery = { "id": { $eq: req.query.id} };
+//    var findQuery = { id: { $eq: req.query.id} };
     var findQuery = {};
     var sortQuery = { _id : 1 };
-    var arr = col.findOne(findQuery).sort(sortQuery).toArray((error, documents) => {
+//    var arr = col.findOne(findQuery).sort(sortQuery).toArray((error, documents) => {
+    var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
       res.status(200).json(documents);
     });
   }
   else {
-    res.json({ "discomfort_index": -1 });
+    res.json({ discomfort_index: -1 });
   }
 });
 
@@ -222,7 +223,7 @@ app.post('/remove_sensor_datas', function (req, res) {
   // コレクション削除
   if(db) {
     var target_id = req.body['_id'];
-    var delQuery = { "_id" : {$eq: target_id} };
+    var delQuery = { _id : {$eq: target_id} };
     var col = db.collection('sensor_datas');
     col.deleteOne(delQuery);
 
