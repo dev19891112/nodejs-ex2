@@ -188,7 +188,7 @@ app.get('/get_discomfort_index_kind1', function (req, res) {
   
   if(db) {
     var col = db.collection('sensor_datas');
-    var arr = col.find().sort{ "_id" : -1 }.toArray((error, documents) => {
+    var arr = col.find({}).sort{ "_id" : -1 }.toArray((error, documents) => {
       res.status(200).json(documents);
     });
   }
