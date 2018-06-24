@@ -187,14 +187,14 @@ app.get('/get_discomfort_index_kind1', function (req, res) {
   }
   
   if(db) {
-    var col = db.collection('sensor_datas');
-//    var findQuery = {};
-    var findQuery = { id: { $eq: req.query.id} };
-    var sortQuery = { _id : -1 };
-    var arr = col.findOne(findQuery).sort(sortQuery).toArray((error, documents) => {
-      res.status(200).json(documents);
-    });
+//    var col = db.collection('sensor_datas');
+//    var findQuery = { id: { $eq: req.query.id} };
+//    var sortQuery = { _id : -1 };
+//    var arr = col.find(findQuery).sort(sortQuery).toArray((error, documents) => {
+//      res.status(200).json(documents);
+//    });
 
+    res.json({ discomfort_index: 0 });
   }
   else {
     res.json({ discomfort_index: -1 });
