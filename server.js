@@ -161,42 +161,44 @@ app.post('/import_sensor_data', function (req, res) {
 
 app.get('/get_discomfort_index_kind1', function (req, res) {
 
-  if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
-    if(req.query.id == 0) {
-      res.json({ discomfort_index : 50 });
-    }
-    else if(req.query.id == 1) {
-      res.json({ discomfort_index : 51 });
-    }
-    else if(req.query.id == 2) {
-      res.json({ discomfort_index : 52 });
-    }
-    else if(req.query.id == 3) {
-      res.json({ discomfort_index : 53 });
-    }
-    else {
-      res.json({ discomfort_index : -1 });
-    }
-  }
-  else {
-    res.json({ discomfort_index: -1 });
-  }
-
-//  if(!db) {
-//    initDb(function(err){});
-//  }
-//  
-//  if(db) {
-//    var col = db.collection('sensor_datas');
-//    var getQuery = {'_id' : -1, 'id' : req.query.id };
-//    var arr = col.find(getQuery).toArray((error, documents) => {
-//      console.log('OK');
-//      res.status(200).json(documents);
-//    });
+//  if(req.query != null && req.query != "" && req.query != {} && req.query != []) {
+//    if(req.query.id == 0) {
+//      res.json({ discomfort_index : 50 });
+//    }
+//    else if(req.query.id == 1) {
+//      res.json({ discomfort_index : 51 });
+//    }
+//    else if(req.query.id == 2) {
+//      res.json({ discomfort_index : 52 });
+//    }
+//    else if(req.query.id == 3) {
+//      res.json({ discomfort_index : 53 });
+//    }
+//    else {
+//      res.json({ discomfort_index : -1 });
+//    }
 //  }
 //  else {
 //    res.json({ discomfort_index: -1 });
 //  }
+
+  if(!db) {
+    initDb(function(err){});
+  }
+  
+  if(db) {
+    var col = db.collection('sensor_datas');
+    var arr = col.find({
+      _id : -1,
+      id : req.query.id
+    })
+    .toArray((error, documents) => {
+      res.status(200).json(documents);
+    });
+  }
+  else {
+    res.json({ discomfort_index: -1 });
+  }
 
 });
 
@@ -224,7 +226,7 @@ app.post('/remove_sensor_datas', function (req, res) {
     var target_id = req.body['_id'];
     var col = db.collection('sensor_datas');
     col.remove({
-    	'_id' : target_id
+    	_id : target_id
     });
 
     var getQuery = {};
