@@ -15,7 +15,8 @@ app.use(function(req, res, next){
     next();
 });
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+//var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
@@ -63,12 +64,16 @@ var initDb = function(callback) {
   });
 };
 
+app.use(express.static('views'));
 app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
     initDb(function(err){});
   }
+  
+  console.log("db log = ", db)
+  
   if (db) {
     var col = db.collection('counts');
     // Create a document with request IP and current time of request
@@ -77,10 +82,12 @@ app.get('/', function (req, res) {
       if (err) {
         console.log('Error running count. Message:\n'+err);
       }
+//      console.log("[info] db is not null")
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
     });
   } else {
-    res.render('index.html', { pageCountMessage : null});
+    console.log("[info] db is null")
+//    res.render('index.html', { pageCountMessage : null});
   }
 });
 
