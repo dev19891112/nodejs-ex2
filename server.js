@@ -86,8 +86,8 @@ app.get('/', function (req, res) {
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
     });
   } else {
-    console.log("[info] db is null")
-//    res.render('index.html', { pageCountMessage : null});
+//    console.log("[info] db is null")
+    res.render('index.html', { pageCountMessage : null});
   }
 });
 
