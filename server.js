@@ -15,8 +15,8 @@ app.use(function(req, res, next){
     next();
 });
 
-//var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000,
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+//var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
