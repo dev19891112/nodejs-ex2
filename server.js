@@ -60,7 +60,7 @@ var initDb = function(callback) {
     dbDetails.url = mongoURLLabel;
     dbDetails.type = 'MongoDB';
 
-    console.log('Connected to MongoDB at: %s', mongoURL);
+//     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
 
@@ -72,7 +72,7 @@ app.get('/', function (req, res) {
     initDb(function(err){});
   }
   
-  console.log("db log = ", db)
+//   console.log("db log = ", db)
   
   if (db) {
     var col = db.collection('counts');
@@ -80,7 +80,7 @@ app.get('/', function (req, res) {
     col.insert({ip: req.ip, date: Date.now()});
     col.count(function(err, count){
       if (err) {
-        console.log('Error running count. Message:\n'+err);
+//         console.log('Error running count. Message:\n'+err);
       }
 //      console.log("[info] db is not null")
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
@@ -221,7 +221,7 @@ app.get('/get_sensor_datas_all', function (req, res) {
     var col = db.collection('sensor_datas');
     var getQuery = {};
     var arr = col.find(getQuery).toArray((error, documents) => {
-      console.log('OK');
+      // console.log('OK');
       res.status(200).json(documents);
     });
   }
@@ -238,7 +238,7 @@ app.post('/remove_sensor_datas', function (req, res) {
 
     var findQuery = {};
     var arr = col.find(findQuery).toArray((error, documents) => {
-      console.log('OK');
+      // console.log('OK');
       res.status(200).json(documents);
     });
   }
