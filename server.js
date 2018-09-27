@@ -65,7 +65,7 @@ var initDb = function(callback) {
 
 //app.use(express.static('views'));
 
-app.get('/map', function (req, res) {
+app.get('/map.html', function (req, res) {
   if (!db) {
     initDb(function(err){});
   }
