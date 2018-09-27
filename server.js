@@ -15,8 +15,8 @@ app.use(function(req, res, next){
     next();
 });
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-//var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000,
+//var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 9000,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
@@ -60,19 +60,14 @@ var initDb = function(callback) {
     dbDetails.url = mongoURLLabel;
     dbDetails.type = 'MongoDB';
 
-//     console.log('Connected to MongoDB at: %s', mongoURL);
   });
 };
 
-app.use(express.static('views'));
+//app.use(express.static('views'));
 app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
   if (!db) {
     initDb(function(err){});
   }
-  
-//   console.log("db log = ", db)
   
   if (db) {
     var col = db.collection('counts');
@@ -80,20 +75,16 @@ app.get('/', function (req, res) {
     col.insert({ip: req.ip, date: Date.now()});
     col.count(function(err, count){
       if (err) {
-//         console.log('Error running count. Message:\n'+err);
+         console.log('Error running count. Message:\n'+err);
       }
-//      console.log("[info] db is not null")
       res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
     });
   } else {
-//    console.log("[info] db is null")
     res.render('index.html', { pageCountMessage : null});
   }
 });
 
 app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
   if (!db) {
     initDb(function(err){});
   }
@@ -258,8 +249,6 @@ initDb(function(err){
 });
 
 app.listen(port, ip);
-console.log('Server running on http://%s:%s', ip, port);
-
 module.exports = app ;
 
 // 不快度指数計算
