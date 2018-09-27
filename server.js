@@ -64,6 +64,11 @@ var initDb = function(callback) {
 };
 
 //app.use(express.static('views'));
+
+app.get('/map', function (req, res) {
+  res.render('map.html');
+});
+
 app.get('/', function (req, res) {
   if (!db) {
     initDb(function(err){});
