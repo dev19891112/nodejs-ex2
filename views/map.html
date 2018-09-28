@@ -36,14 +36,13 @@
             {"type": "Feature", "properties": { "name": "センサー3", "sensor_id":2, "value":80 },
              "geometry": { "type": "Point", "coordinates": [139.6897265, 35.6934841] } }
         ];
-/*
+
         //地理院タイル
         var mymap = L.map('mapid').setView([35.6904841, 139.6957265], 15.5);
         L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html">国土地理院</a> contributors',
             maxZoom: 18, minZoom : 5
         }).addTo(mymap);
-*/        
 
         //マーカー配置
         var ICONS = L.geoJson(geojsonFeatures, {
