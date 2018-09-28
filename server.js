@@ -63,7 +63,7 @@ var initDb = function(callback) {
   });
 };
 
-//app.use(express.static('views'));
+app.use(express.static('views'));
 
 app.get('/map.html', function (req, res) {
   if (!db) {
