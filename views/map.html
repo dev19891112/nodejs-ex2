@@ -30,7 +30,7 @@
         //アイコンマーカーデータ
         var geojsonFeatures = [ 
             {"type": "Feature", "properties": { "name": "センサー1", "sensor_id":0, "value":40 },
-             "geometry": { "type": "Point", "coordinates": [139.798980, 35.689260] } },
+             "geometry": { "type": "Point", "coordinates": [139.6914069, 35.6880121] } },
             {"type": "Feature", "properties": { "name": "センサー2", "sensor_id":1, "value":55 },
              "geometry": { "type": "Point", "coordinates": [139.700504, 35.689869] } },
             {"type": "Feature", "properties": { "name": "センサー3", "sensor_id":2, "value":80 },
@@ -38,7 +38,7 @@
         ];
 
         //地理院タイル
-        var mymap = L.map('mapid').setView([35.6934841, 139.7497265], 13);
+        var mymap = L.map('mapid').setView([35.6904841, 139.6957265], 15.5);
         L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://maps.gsi.go.jp/development/ichiran.html">国土地理院</a> contributors',
             maxZoom: 18, minZoom : 5
@@ -70,7 +70,7 @@
         };
         legend.addTo(mymap);
         
-
+/*
         //senserデータ取得
         getsenserdata();
 
@@ -156,7 +156,7 @@
             }
         }
 
-
+*/
 
     </script>
 </body>
