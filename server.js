@@ -64,14 +64,12 @@ var initDb = function(callback) {
 };
 
 app.use(express.static('views'));
-
 app.get('/map.html', function (req, res) {
   if (!db) {
     initDb(function(err){});
   }
-
+  app.use(express.static('views'));
   res.render('map.html');
-  
 });
 
 app.get('/', function (req, res) {
