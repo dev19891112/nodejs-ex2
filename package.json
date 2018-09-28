@@ -10,7 +10,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "mocha": "^2.4.5",
-    "mongodb": "^2.1.16",
+    "mongodb": "^2.2.36",
     "morgan": "^1.9.0",
     "object-assign": "^4.1.0"
   },
